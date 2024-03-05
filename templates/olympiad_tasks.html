@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ olympiad.name }}{% endblock %}
+
+{% block content %}
+<h3>{{ olympiad.name }}</h3>
+<form method="post" action="{% url 'olympiad_tasks' olympiad.pk %}">
+{% csrf_token %}
+{% for task in olympiad.tasks.all %}
+<h3 class="fw-bolder mt-4">{{ task.title }}</h3>
+<h5>{{ task.content }}</h5>
+<input type="hidden" name="question_{{ forloop.counter }}" value="{{ forloop.counter }}">
+<div class="form-check">
+    <input class="form-check-input border border-1 border-dark" type="radio" name="answer_{{ forloop.counter }}" id="answer_{{ forloop.counter }}_1" value="{{ task.wrong_answer_1 }}"><h6>{{ task.wrong_answer_1 }}</h6>
+</div>
+<div class="form-check">
+    <input class="form-check-input border border-1 border-dark" type="radio" name="answer_{{ forloop.counter }}" id="answer_{{ forloop.counter }}_2" value="{{ task.wrong_answer_2 }}"><h6>{{ task.wrong_answer_2 }}</h6>
+</div>
+<div class="form-check">
+    <input class="form-check-input border border-1 border-dark" type="radio" name="answer_{{ forloop.counter }}" id="answer_{{ forloop.counter }}_3" value="{{ task.wrong_answer_3 }}"><h6>{{ task.wrong_answer_3 }}</h6>
+</div>
+<div class="form-check">
+    <input class="form-check-input border border-1 border-dark" type="radio" name="answer_{{ forloop.counter }}" id="answer_{{ forloop.counter }}_4" value="{{ task.wrong_answer_4 }}"><h6>{{ task.wrong_answer_4 }}</h6>
+</div>
+{% endfor %}
+{% if user.is_authenticated %}
+<button class="btn btn-primary px-4 py-2 mt-3" type="submit">Tekshirish</button>
+{% endif %}
+</form>
+{% endblock %}

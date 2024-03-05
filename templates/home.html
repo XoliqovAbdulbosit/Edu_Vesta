@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Main Page{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-6">
+        <img src="https://img.freepik.com/free-vector/learning-concept-illustration_114360-6186.jpg?w=740&t=st=1678903259~exp=1678903859~hmac=4439d74e80bab0d2f771300198f5903991c6b80af275d324c20965397dfda418" class="img-fluid" alt>
+    </div>
+    <div class="col-6 d-flex justify-content-center align-items-center">
+        <div class="px-1 text-center">
+            <h4>O'quv Sayohatingizni boshlang: yorqin ertangi kun uchun bilim!</h4>
+            <h5>by Xoliqov Abdulbosit & Xusniddinov Doston</h5>
+            <a href="{% url 'signup' %}" class="btn btn-primary fs-5 px-3 py-2 mt-2">O'rganishni boshlash</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

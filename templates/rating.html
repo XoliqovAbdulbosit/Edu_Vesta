@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Reyting{% endblock %}
+
+{% block content %}
+<h3>Reyting</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Username</th>
+            <th scope="col">Yechgan masalalar soni</th>
+            <th scope="col">Tizimdagi o'rni</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if user.is_authenticated %}
+        <tr class="bg-dark text-white">
+            <th scope="row"><a href="{% url 'profile' user.pk %}" class="text-white text-decoration-none">{{ rank }}</a></th>
+            <td><a href="{% url 'profile' user.pk %}" class="text-white text-decoration-none">{{ user.username }}</a></td>
+            <td class="text-white">{{ user_profile.cnt }}</td>
+            <td>{{ rank }}</td>
+        </tr>
+        {% endif %}
+        {% for profile in profiles %}
+        <tr>
+            <th scope="row"><a href="{% url 'profile' profile.user.pk %}" class="text-dark text-decoration-none">{{ forloop.counter }}</a></th>
+            <td><a href="{% url 'profile' profile.user.pk %}" class="text-dark text-decoration-none">{{ profile.user }}</a></td>
+            <td>{{ profile.cnt }}</td>
+            <td>{{ forloop.counter }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

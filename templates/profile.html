@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ user.username }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-6">
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="position-relative avatar-container">
+                    <img src="https://robocontest.uz/storage/uploads/profile/1015016Q6PEfFWGf557B8pGG0xmoI.jpg" class="rounded" alt="Profile picture of user" width="100%" id="avatar">
+                </div>
+                <hr>
+                <h3 class="card-title text-center">
+                    <b>{{ users.first_name }} {{ users.last_name }}</b>
+                    <br>
+                    <small>@{{ users.username }}</small>
+                </h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="d-flex flex-row justify-content-around">
+                    <div class="d-flex flex-column align-items-center">
+                        <h3><i class="fa fa-award text-info mr-2"></i> {{ rank }}</h3>
+                        <p>Tizimdagi o'rni</p>
+                    </div>
+                    <div class="d-flex flex-column align-items-center">
+                        <h3><i class="fa fa-tasks mr-2"></i> {{ profile.cnt }} / {{ ln }}</h3>
+                        <p>Yechgan masalalari</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-3">
+            <div class="card-body p-0">
+                <h5 class="card-header">Fanlar</h5>
+                {% for subject in dct %}
+                <div class="row my-2 mx-2">
+                    <div class="col-5">{{ subject.0 }}</div>
+                    <div class="col-7">
+                        <div class="btn-group" role="group">
+                            <div class="btn btn-sm btn-success" style="width: 70px">
+                                <i class="fa fa-check"></i>
+                                {{ subject.1 }}
+                            </div>
+
+                            <div class="btn btn-sm btn-info" style="width: 70px">
+                                <i class="fab fa-strava"></i>
+                                {{ subject.2 }}
+                            </div>
+
+                            <div class="btn btn-sm btn-danger" style="width: 70px">
+                                <i class="fa fa-times"></i>
+                                {{ subject.3 }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

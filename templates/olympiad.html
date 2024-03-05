@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ olympiad.name }}{% endblock %}
+
+{% block content %}
+<h3>{{ olympiad.name }}</h3>
+<p>Boshlanish vaqti: {{ olympiad.start_time }}</p>
+<p>Tugash vaqti: {{ olympiad.end_time }}</p>
+<a class="btn btn-outline-success me-2" href="{% url 'olympiad_tasks' olympiad.pk %}">Kirish</a>
+{% endblock %}

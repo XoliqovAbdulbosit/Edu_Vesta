@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Olimpiadalar{% endblock %}
+
+{% block content %}
+<h3>Olimpiadalar</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nomi</th>
+            <th scope="col">Boshlanish vaqti</th>
+            <th scope="col">Tugash vaqti</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for olympiad in olympiads %}
+        <tr>
+            <th scope="row"><a href="{% url 'olympiad' olympiad.pk %}" class="text-dark text-decoration-none">{{ forloop.counter }}</a></th>
+            <td><a href="{% url 'olympiad' olympiad.pk %}" class="text-dark text-decoration-none">{{ olympiad.name }}</a></td>
+            <td>{{ olympiad.start_time }}</td>
+            <td>{{ olympiad.end_time }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

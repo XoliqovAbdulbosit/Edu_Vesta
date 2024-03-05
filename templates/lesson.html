@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ lesson.title }}{% endblock %}
+
+{% block content %}
+<h3>{{ lesson.title }}</h3>
+<p>{{ lesson.content }}</p>
+<iframe src="https://www.youtube.com/embed/{{ lesson.link }}" title="{{ lesson.title }}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen width="729" height="410" frameborder="0"></iframe>
+{% endblock %}

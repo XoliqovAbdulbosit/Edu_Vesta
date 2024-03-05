@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ task.title }}{% endblock %}
+
+{% block content %}
+{% if messages %}
+<ul>
+    {% for message in messages %}
+    {% if message.tags == 'error' %}
+    <h3 class="text-danger">{{ message }}</h3>
+    {% else %}
+    <h3 class="text-success">{{ message }}</h3>
+    {% endif %}
+    {% endfor %}
+</ul>
+{% endif %}
+<h3 class="fw-bolder">{{ task.title }}</h3>
+<h5>{{ task.content }}</h5>
+<h4>Javobni tanlang:</h4>
+{% if user.is_authenticated %}
+<form method="post" action="{% url 'task' task.pk %}">
+    {% csrf_token %}
+    <div class="form-check">
+        <input class="form-check-input border border-1 border-dark" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="{{ task.wrong_answer_1 }}"><h6>{{ task.wrong_answer_1 }}</h6>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input border border-1 border-dark" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="{{ task.wrong_answer_2 }}"><h6>{{ task.wrong_answer_2 }}</h6>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input border border-1 border-dark" type="radio" name="flexRadioDefault" id="flexRadioDefault3" value="{{ task.wrong_answer_3 }}"><h6>{{ task.wrong_answer_3 }}</h6>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input border border-1 border-dark" type="radio" name="flexRadioDefault" id="flexRadioDefault4" value="{{ task.wrong_answer_4 }}"><h6>{{ task.wrong_answer_4 }}</h6>
+    </div>
+    <button class="btn btn-primary px-4 py-2" type="submit">Tekshirish</button>
+</form>
+{% endif %}
+{% endblock %}

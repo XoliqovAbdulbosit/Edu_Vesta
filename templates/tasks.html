@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Mashqlar{% endblock %}
+
+{% block content %}
+<h3>Mashqlar</h3>
+<span class="fs-5">Filtrlar:</span>
+{% for subject in subjects %}
+<a class="text-decoration-none text-white fs-5 btn btn-primary" href="{% url 'tasks' subject.pk %}">{{ subject.subject }}</a>
+{% endfor %}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nomi</th>
+            <th scope="col">Foiz</th>
+            <th scope="col">Fan</th>
+            <th scope="col">Sinf</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for task in tasks %}
+        <tr>
+            <th scope="row"><a href="{% url 'task' task.pk %}" class="text-dark">{{ task.pk }}</a></th>
+            <td><a href="{% url 'task' task.pk %}" class="text-dark">{{ task.title }}</a></td>
+            <td>{{ task.percentage }}</td>
+            <td>{{ task.subject }}</td>
+            <td>{{ task.grade }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
