@@ -19,6 +19,7 @@ urlpatterns = [
     path('olympiad/<olympiad>', olympiad),
     path('olympiad/<user>/<olympiad>', olympiad_submit),
     path('rating/', rating),
+    path('profile/<username>', profile),
     path('register/<username>/<password>', register),
     path('login/<username>/<password>', login)
 ]

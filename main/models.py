@@ -3,6 +3,14 @@ from django.db import models
 
 
 # Create your models here.
+class Image(models.Model):
+    name = models.CharField(max_length=50)
+    image = models.ImageField()
+
+    def __str__(self):
+        return self.name
+
+
 class Subject(models.Model):
     subject = models.CharField(max_length=45)
 
@@ -18,6 +26,7 @@ class Grade(models.Model):
 
 
 class Lesson(models.Model):
+    image = models.ForeignKey(Image, on_delete=models.PROTECT)
     title = models.CharField(max_length=50)
     content = models.TextField()
     grade = models.ForeignKey(Grade, on_delete=models.PROTECT)
@@ -29,6 +38,7 @@ class Lesson(models.Model):
 
 
 class Task(models.Model):
+    image = models.ForeignKey(Image, on_delete=models.PROTECT)
     title = models.CharField(max_length=100)
     content = models.TextField()
     answer = models.CharField(max_length=45)
@@ -89,6 +99,7 @@ class Profile(models.Model):
 
 
 class Olympiad(models.Model):
+    image = models.ForeignKey(Image, on_delete=models.PROTECT)
     name = models.CharField(max_length=100)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()

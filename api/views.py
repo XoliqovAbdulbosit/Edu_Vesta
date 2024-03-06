@@ -59,6 +59,7 @@ def tasks_by_subject_grade(request, subject, grade):
 def lesson(request, lesson):
     fnd = Lesson.objects.get(title=lesson)
     data = {
+        'image': fnd.image.image.url,
         'title': fnd.title,
         'content': fnd.content,
         'grade': fnd.grade.grade,
@@ -71,6 +72,7 @@ def lesson(request, lesson):
 def task(request, task):
     fnd = Task.objects.get(title=task)
     data = {
+        'image': fnd.image.image.url,
         'title': fnd.title,
         'content': fnd.content,
         'answer': fnd.answer,
@@ -114,6 +116,7 @@ def olympiads(request):
 def olympiad(request, olympiad):
     fnd = Olympiad.objects.get(name=olympiad)
     data = {
+        'image': fnd.image.image.url,
         'name': fnd.name,
         'start_time': fnd.start_time,
         'end_time': fnd.end_time,
@@ -137,6 +140,36 @@ def olympiad_submit(request, user, olympiad):
     participant.cnt = score
     participant.save()
     return JsonResponse(score, safe=False)
+
+
+def profile(request, username):
+    subjects = Subject.objects.all()
+    ln = Task.objects.all().count()
+    user = User.objects.get(username=username)
+    profile = Profile.objects.get(user=user)
+    rank = list(Profile.objects.all().values_list('user__username', flat=True)).index(username) + 1
+    dct = list()
+    for subject in subjects:
+        solved = Solved.objects.filter(user=user, subject=subject).count()
+        try:
+            sent = Sent.objects.get(user=user, subject=subject).cnt
+        except:
+            sent = 0
+        try:
+            error = Error.objects.get(user=user, subject=subject).cnt
+        except:
+            error = 0
+        dct.append([subject.subject, solved, sent, error])
+    return JsonResponse({
+        'username': user.username,
+        'joined': user.date_joined,
+        'ln': ln,
+        'rank': rank,
+        'solved': {
+            'cnt': profile.cnt,
+            'detailed': dct,
+        },
+    }, safe=False)
 
 
 def register(request, username, password):

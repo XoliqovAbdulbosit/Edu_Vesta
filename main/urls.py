@@ -1,4 +1,6 @@
+from django.conf.urls.static import static
 from django.urls import path
+from Edu_Vesta import settings
 from .views import *
 
 urlpatterns = [
@@ -17,4 +19,4 @@ urlpatterns = [
     path('olympiads/', olympiads, name='olympiads'),
     path('olympiad/<int:olympiad_id>', olympiad, name='olympiad'),
     path('olympiad_tasks/<int:olympiad_id>', olympiad_tasks, name='olympiad_tasks'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
