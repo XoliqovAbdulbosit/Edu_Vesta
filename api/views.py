@@ -21,18 +21,14 @@ def lessons(request):
     return JsonResponse(list(lessons), safe=False)
 
 
-def lessons_by_subject(request, subject):
-    lessons = Lesson.objects.filter(subject=Subject.objects.get(subject=subject)).values_list('title', flat=True)
-    return JsonResponse(list(lessons), safe=False)
-
-
-def lessons_by_grade(request, grade):
-    lessons = Lesson.objects.filter(grade=Grade.objects.get(grade=grade)).values_list('title', flat=True)
-    return JsonResponse(list(lessons), safe=False)
-
-
 def lessons_by_subject_grade(request, subject, grade):
-    lessons = Lesson.objects.filter(subject=Subject.objects.get(subject=subject), grade=Grade.objects.get(grade=grade)).values_list('title', flat=True)
+    lessons = []
+    if subject == "All" and grade == "All":
+        lessons = Lesson.objects.all().values_list('title', flat=True)
+    elif subject == "All":
+        lessons = Lesson.objects.filter(grade=Grade.objects.get(grade=grade)).values_list('title', flat=True)
+    elif grade == "All":
+        lessons = Lesson.objects.filter(subject=Subject.objects.get(subject=subject)).values_list('title', flat=True)
     return JsonResponse(list(lessons), safe=False)
 
 
@@ -41,18 +37,14 @@ def tasks(request):
     return JsonResponse(list(tasks), safe=False)
 
 
-def tasks_by_subject(request, subject):
-    tasks = Task.objects.filter(subject=Subject.objects.get(subject=subject)).values_list('title', flat=True)
-    return JsonResponse(list(tasks), safe=False)
-
-
-def tasks_by_grade(request, grade):
-    tasks = Task.objects.filter(grade=Grade.objects.get(grade=grade)).values_list('title', flat=True)
-    return JsonResponse(list(tasks), safe=False)
-
-
 def tasks_by_subject_grade(request, subject, grade):
-    tasks = Task.objects.filter(subject=Subject.objects.get(subject=subject), grade=Grade.objects.get(grade=grade)).values_list('title', flat=True)
+    tasks = []
+    if subject == "All" and grade == "All":
+        tasks = Task.objects.all().values_list('title', flat=True)
+    elif subject == "All":
+        tasks = Task.objects.filter(grade=Grade.objects.get(grade=grade)).values_list('title', flat=True)
+    elif grade == "All":
+        tasks = Task.objects.filter(subject=Subject.objects.get(subject=subject)).values_list('title', flat=True)
     return JsonResponse(list(tasks), safe=False)
 
 
