@@ -29,6 +29,8 @@ def lessons_by_subject_grade(request, subject, grade):
         lessons = Lesson.objects.filter(grade=Grade.objects.get(grade=grade)).values_list('title', flat=True)
     elif grade == "All":
         lessons = Lesson.objects.filter(subject=Subject.objects.get(subject=subject)).values_list('title', flat=True)
+    else:
+        lessons = Lesson.objects.filter(subject=Subject.objects.get(subject=subject), grade=Grade.objects.get(grade=grade)).values_list('title', flat=True)
     return JsonResponse(list(lessons), safe=False)
 
 
@@ -45,6 +47,8 @@ def tasks_by_subject_grade(request, subject, grade):
         tasks = Task.objects.filter(grade=Grade.objects.get(grade=grade)).values_list('title', flat=True)
     elif grade == "All":
         tasks = Task.objects.filter(subject=Subject.objects.get(subject=subject)).values_list('title', flat=True)
+    else:
+        tasks = Task.objects.filter(subject=Subject.objects.get(subject=subject), grade=Grade.objects.get(grade=grade)).values_list('title', flat=True)
     return JsonResponse(list(tasks), safe=False)
 
 
