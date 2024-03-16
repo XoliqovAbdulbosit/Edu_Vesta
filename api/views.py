@@ -1,6 +1,7 @@
 import json
 from django.contrib.auth import authenticate
 from django.http import JsonResponse
+from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from main.models import *
 
@@ -114,8 +115,8 @@ def olympiad(request, olympiad):
     data = {
         'image': fnd.image.image.url,
         'name': fnd.name,
-        'start_time': fnd.start_time,
-        'end_time': fnd.end_time,
+        'start_time': fnd.start_time.replace(tzinfo=None).strftime('%Y-%m-%d %H:%M:%S'),
+        'end_time': fnd.end_time.replace(tzinfo=None).strftime('%Y-%m-%d %H:%M:%S'),
         'tasks': list(fnd.tasks.values('title', 'content', 'answer', 'wrong_answer_1', 'wrong_answer_2', 'wrong_answer_3', 'wrong_answer_4', 'grade', 'subject', 'percentage')),
     }
     return JsonResponse(data, safe=False)
@@ -158,7 +159,7 @@ def profile(request, username):
         dct.append([subject.subject, solved, sent, error])
     return JsonResponse({
         'username': user.username,
-        'joined': user.date_joined,
+        'joined': user.date_joined.replace(tzinfo=None).strftime('%Y-%m-%d %H:%M:%S'),
         'ln': ln,
         'rank': rank,
         'solved': {
